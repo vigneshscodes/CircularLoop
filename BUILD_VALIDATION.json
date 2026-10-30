@@ -1,0 +1,10 @@
+{
+  "zip": "/mnt/data/CircularLoop.zip",
+  "size_bytes": 40804,
+  "files": 40,
+  "missing_required": [],
+  "node_version": "v22.16.0",
+  "backend_js_syntax_errors": [],
+  "dependencies_installed_or_build_run": false,
+  "note": "Backend JavaScript syntax checked with Node.js. npm dependency installation and Vite production build were not run in this environment."
+}

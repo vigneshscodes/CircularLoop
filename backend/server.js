@@ -1,0 +1,20 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import api from "./routes/api.js";
+import { notFound,errorHandler } from "./middleware/errors.js";
+import { closeDriver } from "./config/db.js";
+dotenv.config();
+const app=express();
+const allowed=(process.env.FRONTEND_URL||"http://localhost:5173").split(",").map(x=>x.trim());
+app.use(cors({origin(origin,cb){if(!origin||allowed.includes(origin)||allowed.includes("*")) return cb(null,true); return cb(new Error("Origin is not allowed by CORS"));},credentials:false}));
+app.use(express.json({limit:"1mb"}));
+app.get("/",(req,res)=>res.json({name:"CircularLoop API",health:"/api/health"}));
+app.use("/api",api);
+app.use(notFound);
+app.use(errorHandler);
+const port=process.env.PORT||5000;
+const server=app.listen(port,()=>console.log(`CircularLoop API listening on ${port}`));
+async function shutdown(){server.close(async()=>{await closeDriver();process.exit(0);});}
+process.on("SIGTERM",shutdown);
+process.on("SIGINT",shutdown);

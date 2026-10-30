@@ -1,0 +1,18 @@
+import { Router } from "express";
+import * as c from "../controllers/dataController.js";
+const router=Router();
+router.get("/health",c.health);
+router.get("/dashboard",c.dashboard);
+router.get("/items",c.getItems);
+router.get("/items/:id/components",c.getComponents);
+router.get("/items/:id/lifecycle",c.getLifecycle);
+router.get("/items/:id",c.getItem);
+router.post("/recommendations",c.recommendations);
+router.get("/graph/:itemId",c.graphForItem);
+router.get("/actions",c.getActions);
+router.get("/actions/:id",c.getAction);
+router.post("/actions",c.createAction);
+router.put("/actions/:id",c.updateAction);
+router.delete("/actions/:id",c.deleteAction);
+router.get("/facilities",c.facilities);
+export default router;
