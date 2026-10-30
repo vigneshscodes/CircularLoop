@@ -132,7 +132,7 @@ export const graphForItem = asyncHandler(async (req,res) => {
     UNWIND rs AS relList
     UNWIND relList AS r
     RETURN nodes, collect(DISTINCT {id:elementId(r),source:startNode(r).id,target:endNode(r).id,type:type(r)}) AS links
-  `,{id:req.params.id});
+  `,{id:req.params.itemId});
   if(!result.records.length) throw fail("Item not found",404);
   const obj=recordObject(result.records[0]);
   res.json({success:true,nodes:obj.nodes,edges:obj.links.filter(e=>e.source&&e.target)});
